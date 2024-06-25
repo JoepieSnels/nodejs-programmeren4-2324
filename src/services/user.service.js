@@ -96,6 +96,50 @@ const userService = {
             )
         })
     },
+    getById: (userId, callback) => {
+        logger.info('getById userId: ' + userId)
+
+        db.getConnection(function (err, connection) {
+            if (err) {
+                logger.error(err)
+                callback(err, null)
+                return
+            }
+
+            connection.query(
+                'SELECT `emailAdress`, `phoneNumber`, `meal`.name AS mealName ' +
+                    'FROM `user` ' +
+                    'INNER JOIN `meal` ON `user`.`id` = `meal`.`id` ' +
+                    'WHERE `user`.`id` = ?',
+                [userId],
+                function (error, results) {
+                    connection.release()
+
+                    if (error) {
+                        logger.error(error)
+                        callback(error, null)
+                    } else if (results.length === 0) {
+                        logger.info(`User with id ${userId} not found`)
+                        callback(null, {
+                            status: 404,
+                            message: 'User not found',
+                            data: {}
+                        })
+                    } else {
+                        logger.debug(results)
+                        callback(null, {
+                            status: 200,
+                            message: `Found ${results.length} user${
+                                results.length !== 1 ? 'S' : ''
+                            }.`,
+                            data: results
+                        })
+                    }
+                }
+            )
+        })
+    },
+
     filter: (filter, callback) => {
         logger.info('filter', filter)
 
@@ -107,7 +151,7 @@ const userService = {
             }
 
             connection.query(
-                'SELECT id, firstName, lastName, isActive FROM `user` WHERE city LIKE ? AND isActive = ?',
+                'SELECT id, firstName, lastName FROM `user` WHERE city LIKE ? AND isActive = ?',
                 ['%' + filter.city + '%', filter.isActive],
                 function (error, results) {
                     connection.release()
