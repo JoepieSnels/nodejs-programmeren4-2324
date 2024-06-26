@@ -54,14 +54,14 @@ const validateUserCreate = (req, res, next) => {
     }
 }
 
-<<<<<<< HEAD
+
 // Userroutes
 router.post('/api/user', validateUserCreate, userController.create)
 router.get('/api/user', validateToken, userController.getAll)
 router.post('/api/user/filter', validateToken, userController.filter)
 router.get('/api/user/profile', validateToken, userController.getProfile)
 router.get('/api/user/:userId', userController.getById)
-=======
+
 const validateUserUpdate = (req, res, next) => {
     try {
         const body = req.body
@@ -77,7 +77,7 @@ const validateUserUpdate = (req, res, next) => {
             /^[a-zA-Z]+$/,
             'firstName must be a string'
         )
->>>>>>> feature
+
 
         chai.expect(body.lastName).to.not.be.empty
         chai.expect(body.lastName).to.be.a('string')
