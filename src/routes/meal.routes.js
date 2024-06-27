@@ -83,8 +83,13 @@ router.post(
     validateMealCreate,
     mealController.create
 )
-router.get('/meals', mealController.getAll)
+router.put(
+    '/meal/update',
+    validateToken,
+    validateMealUpdate,
+    mealController.update
+)
+router.get('/meal', mealController.getAll)
 router.get('/meal/:mealId', mealController.getMealById)
-router.put('/meal/update', validateToken, mealController.update)
 router.delete('/meal/delete', validateToken, mealController.delete)
 module.exports = router
