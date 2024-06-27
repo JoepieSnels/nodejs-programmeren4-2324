@@ -26,7 +26,7 @@ let mealController = {
     },
     update: (req, res, next) => {
         const meal = req.body
-        const mealId = req.body.mealId
+        const mealId = req.params.mealId
         const cookId = req.userId
         logger.info(cookId)
         logger.info('update meal', mealId)
@@ -67,7 +67,6 @@ let mealController = {
             }
         })
     },
-
     getMealById: (req, res, next) => {
         const mealId = req.params.mealId
         logger.trace('mealController: getMealById', mealId)
@@ -89,11 +88,10 @@ let mealController = {
         })
     },
     delete: (req, res, next) => {
-        const meal = req.body
+        const mealId = req.params.mealId
         const cookId = req.userId
-        logger.info(meal)
-        logger.info('delete meal', meal)
-        mealService.delete(meal, cookId, (error, success) => {
+        logger.info('delete meal', mealId)
+        mealService.delete(mealId, cookId, (error, success) => {
             if (error) {
                 return next({
                     status: error.status || 500,
@@ -111,4 +109,5 @@ let mealController = {
         })
     }
 }
+
 module.exports = mealController
