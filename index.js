@@ -6,12 +6,10 @@ const logger = require('./src/util/logger')
 
 const app = express()
 
-// express.json zorgt dat we de body van een request kunnen lezen
 app.use(express.json())
 
 const port = process.env.PORT || 3000
 
-// Dit is een voorbeeld van een simpele route
 app.get('/api/info', (req, res) => {
     console.log('GET /api/info')
     const info = {
@@ -22,12 +20,10 @@ app.get('/api/info', (req, res) => {
     res.json(info)
 })
 
-// Hier komen alle routes
 app.use('/api/auth', authRoutes)
 app.use(userRoutes)
 app.use(mealRoutes)
 
-// Route error handler
 app.use((req, res, next) => {
     logger.error('Route not found')
     next({
@@ -37,7 +33,7 @@ app.use((req, res, next) => {
     })
 })
 
-// Hier komt je Express error handler te staan!
+// Express error handler
 app.use((error, req, res, next) => {
     res.status(error.status || 500).json({
         status: error.status || 500,
@@ -50,5 +46,5 @@ app.listen(port, () => {
     logger.info(`Server is running on port ${port}`)
 })
 
-// Deze export is nodig zodat Chai de server kan opstarten
+// This export is necessary so that Chai can start the server
 module.exports = app

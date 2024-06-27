@@ -77,19 +77,9 @@ const validateMealUpdate = (req, res, next) => {
     }
 }
 
-router.post(
-    '/meal/create',
-    validateToken,
-    validateMealCreate,
-    mealController.create
-)
-router.put(
-    '/meal/update',
-    validateToken,
-    validateMealUpdate,
-    mealController.update
-)
-router.get('/meal', mealController.getAll)
-router.get('/meal/:mealId', mealController.getMealById)
-router.delete('/meal/delete', validateToken, mealController.delete)
+router.post('/meal', validateToken, validateMealCreate, mealController.create)
+router.get('/meals', mealController.getAll)
+router.get('/meal/:mealId', mealController.getById)
+router.put('/meal/update', validateToken, mealController.updateMeal)
+router.delete('/meal/delete', validateToken, mealController.deleteMeal)
 module.exports = router
