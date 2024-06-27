@@ -1,7 +1,7 @@
 const userService = require('../services/user.service')
 const logger = require('../util/logger')
 
-let userController = {
+const userController = {
     create: (req, res, next) => {
         const user = req.body
         logger.info('create user', user.firstName, user.lastName)
@@ -22,7 +22,6 @@ let userController = {
             }
         })
     },
-
     getAll: (req, res, next) => {
         logger.trace('getAll')
         userService.getAll((error, success) => {
@@ -42,7 +41,6 @@ let userController = {
             }
         })
     },
-
     getById: (req, res, next) => {
         const userId = req.params.userId
         logger.trace('userController: getById', userId)
@@ -63,7 +61,6 @@ let userController = {
             }
         })
     },
-
     getProfile: (req, res, next) => {
         const userId = req.userId
         logger.trace('getProfile for userId', userId)
