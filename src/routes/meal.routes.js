@@ -77,7 +77,12 @@ const validateMealUpdate = (req, res, next) => {
     }
 }
 
-router.post('/meal', validateToken, validateMealCreate, mealController.create)
+router.post(
+    '/meal/create',
+    validateToken,
+    validateMealCreate,
+    mealController.create
+)
 router.get('/meals', mealController.getAll)
 router.get('/meal/:mealId', mealController.getById)
 router.put('/meal/update', validateToken, mealController.updateMeal)
