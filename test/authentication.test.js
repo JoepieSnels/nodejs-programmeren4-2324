@@ -85,7 +85,7 @@ describe('UC101 Login', () => {
         chai.request(server)
             .post(endpointToTest)
             .send({
-                emailAdress: 'Joep.Snels@kpnmail.nl',
+                emailAdress: 'm.vandullemen@server.nl',
                 password: 'secret'
             })
             .end((err, res) => {
@@ -188,11 +188,11 @@ describe('UC201 Registreren', () => {
         chai.request(server)
             .post(endpointToTest)
             .send({
-                emailAdress: 'Hans.Klok70@gmail.com',
+                emailAdress: 'Hans.Klok71@gmail.com',
                 password: 'secret',
                 firstName: 'Hans',
                 lastName: 'Klok',
-                phoneNumber: '0612345674',
+                phoneNumber: '0612349492',
                 street: 'Kerkstraat',
                 city: 'Amsterdam'
             })
