@@ -121,6 +121,26 @@ const userController = {
                 })
             }
         })
+    },
+    filter: (req, res, next) => {
+        const filter = req.body
+        logger.trace('filter', filter)
+        userService.filter(filter, (error, success) => {
+            if (error) {
+                return next({
+                    status: error.status,
+                    message: error.message,
+                    data: {}
+                })
+            }
+            if (success) {
+                res.status(200).json({
+                    status: 200,
+                    message: success.message,
+                    data: success.data
+                })
+            }
+        })
     }
 }
 

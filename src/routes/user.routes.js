@@ -123,6 +123,7 @@ router.put(
     userController.updateUser
 )
 router.delete('/api/user/delete', validateToken, userController.deleteUser)
+router.post('/api/user/filter', validateToken, userController.filter)
 
 // Temporary routes to handle non-existent routes
 router.put('/api/user/:userId', notFound)

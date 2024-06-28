@@ -217,6 +217,36 @@ const userService = {
                 }
             )
         })
+    },
+    filter: (filter, callback) => {
+        logger.info('filter', filter)
+
+        db.getConnection(function (err, connection) {
+            if (err) {
+                logger.error(err)
+                callback(err, null)
+                return
+            }
+
+            connection.query(
+                'SELECT id, firstName, lastName FROM `user` WHERE firstName LIKE ? OR isActive LIKE ?',
+                ['%' + filter + '%', '%' + filter + '%'],
+                function (error, results, fields) {
+                    connection.release()
+
+                    if (error) {
+                        logger.error(error)
+                        callback(error, null)
+                    } else {
+                        logger.debug(results)
+                        callback(null, {
+                            message: `Found ${results.length} users.`,
+                            data: results
+                        })
+                    }
+                }
+            )
+        })
     }
 }
 
