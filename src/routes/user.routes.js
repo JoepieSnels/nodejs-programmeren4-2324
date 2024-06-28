@@ -95,9 +95,9 @@ const validateUserUpdate = (req, res, next) => {
 }
 const validateUserId = (req, res, next) => {
     try {
-        assert(req.query.userId, 'Missing or incorrect userId field')
-        chai.expect(req.query.userId).to.not.be.empty
-        chai.expect(req.query.userId).to.be.a('number')
+        assert(req.params.userId, 'Missing or incorrect userId field')
+        chai.expect(req.params.userId).to.not.be.empty
+        chai.expect(req.params.userId).to.be.a('string')
 
         next()
     } catch (ex) {
